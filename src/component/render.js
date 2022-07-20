@@ -1,10 +1,10 @@
 import React from "react";
-import { getDocument, GlobalWorkerOptions } from "pdfjs-dist";
-// import * as pdfjsLib from 'pdfjs-dist/webpack';
+import { getDocument, GlobalWorkerOptions,} from "pdfjs-dist";
 
-const url = "./test.pdf";
-GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js-dist@2.15.268/build/pdf.worker.js';
+const test = require('pdfjs-dist/build/pdf.worker.entry.js');
 
+const url = "./pdf.pdf";
+GlobalWorkerOptions.workerSrc = '../../node_modules/pdfjs-dist/build/pdf.worker.js';
 class Render extends React.Component{
     constructor(props){
         super(props);
@@ -22,7 +22,21 @@ class Render extends React.Component{
     }
 
     getPDF = () => {
-        var loadPDF = getDocument(url).promise.then(doc => {
+        getDocument(url).promise.then(doc => {
+            this.setState({pdfdoc: doc});
+            doc.getPage(1).then(page => {
+                var scale = 1;
+		        var viewport = page.getViewport(scale);
+                // var canvas = <canvas/>
+                var context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                var renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+                page.render(renderContext);
+            })
             this.setState({pdfdoc: doc});
             console.log(this.state.pdfDoc);
         });
@@ -35,6 +49,7 @@ class Render extends React.Component{
         return(
             <>
                 <div>bitch</div>
+                <canvas></canvas>
             </>
         )
     }
