@@ -28,14 +28,14 @@ class Render extends React.Component{
                 var scale = 1;
 		        var viewport = page.getViewport(scale);
                 // var canvas = <canvas/>
-                var context = canvas.getContext('2d');
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-                var renderContext = {
-                    canvasContext: context,
-                    viewport: viewport
-                };
-                page.render(renderContext);
+                // var context = canvas.getContext('2d');
+                // canvas.height = viewport.height;
+                // canvas.width = viewport.width;
+                // var renderContext = {
+                //     canvasContext: context,
+                //     viewport: viewport
+                // };
+                // page.render(renderContext);
             })
             this.setState({pdfdoc: doc});
             console.log(this.state.pdfDoc);
@@ -48,8 +48,8 @@ class Render extends React.Component{
     render(){
         return(
             <>
-                <div>bitch</div>
-                <canvas></canvas>
+                <div>Render</div>
+                {/* <canvas></canvas> */}
             </>
         )
     }
