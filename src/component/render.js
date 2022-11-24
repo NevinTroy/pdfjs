@@ -12,7 +12,7 @@ class Render extends React.Component{
             pdfDoc: null,
             currentPage: 1,
             isRendering: false,
-            pageaPeding: null,
+            pagePending: null,
             scale: 1.5,
         };
     }
@@ -27,33 +27,31 @@ class Render extends React.Component{
             doc.getPage(1).then(page => {
                 var scale = 1;
 		        var viewport = page.getViewport(scale);
-                // var canvas = <canvas/>
-                // var context = canvas.getContext('2d');
-                // canvas.height = viewport.height;
-                // canvas.width = viewport.width;
-                // var renderContext = {
-                //     canvasContext: context,
-                //     viewport: viewport
-                // };
-                // page.render(renderContext);
+                var canvas = <canvas/>
+                var context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                var renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+                page.render(renderContext);
             })
             this.setState({pdfdoc: doc});
             console.log(this.state.pdfDoc);
         });
     }
-    renderPage = (number) => {
-
-    }
+}
     
     render(){
         return(
             <>
                 <div>Render</div>
-                {/* <canvas></canvas> */}
+                <canvas></canvas>
             </>
-        )
+        );
     }
 
-}
+
 
 export default Render;
